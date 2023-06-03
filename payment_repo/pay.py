@@ -5,6 +5,8 @@ import datetime
 import qrcode
 import os
 from dataclasses import dataclass
+import concurrent.futures
+
 
 # Set up web3 connection
 config=configparser.ConfigParser()
@@ -34,7 +36,7 @@ class payments:
         return filename
 
 
-    def merchant_inputs(self,usd_value, merchant_wallet_address,payment_assest):
+    def merchant_inputs(self,usd_value,merchant_wallet_address,payment_assest):
         url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
 
         response = requests.get(url)
@@ -59,30 +61,44 @@ class payments:
 
     
 
-    def get_transaction_status(self,tx_hash, your_wallet_address):
+    def get_transaction_status(self,tx_hash):
 
         transaction = web3.eth.get_transaction(tx_hash)
 
-        ### keeping 2 minute window to verify transaction by user  ###   assuming 1 block takes 12 seconds  ###
+        
+        if transaction is None:
+            return "Transaction not found"
 
-        if web3.eth.get_block_number()-transaction['blockNumber']<=10:
-            
+        if transaction.blockNumber is None:
+            return "Transaction is still pending"
 
-            if transaction is None:
-                return "Transaction not found"
+        transaction_receipt = web3.eth.get_transaction_receipt(tx_hash)
 
-            if transaction.blockNumber is None:
-                return "Transaction is still pending"
-
-            transaction_receipt = web3.eth.get_transaction_receipt(tx_hash)
-
-            if transaction_receipt.status == 0:
-                return "Transaction failed"
-            elif your_wallet_address == transaction['to']:
-                return "Transaction succeeded"
+        if transaction_receipt.status == 0:
+            return "Transaction failed"
         else:
-            return 'System timeout!! submit yout transaction hash and check with merchant'
+            return "Transaction succeeded"
+        
 
+    def auto_payment(self,wallet_address):
+    
+        found_transactions = []
 
+        def process_transaction(tx_hash):
+            tx = web3.eth.get_transaction(tx_hash)
+            if tx['to'] == wallet_address:
+                found_transactions.append((tx['hash'], tx['from'], tx['to']))
 
+        block = web3.eth.get_block('latest')
+        transactions = block.transactions
 
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future_results = [executor.submit(process_transaction, tx) for tx in transactions]
+
+        # Get results from completed futures
+        for future in concurrent.futures.as_completed(future_results):
+            result = future.result()
+            if result:
+                found_transactions.append(result)
+
+        return found_transactions
