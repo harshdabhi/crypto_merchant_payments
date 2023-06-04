@@ -4,7 +4,6 @@
 # My Project
 
 Welcome to my project! Here's a video showcasing its features:
-
-[![Watch the video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/lLJnS2Zc8UU)
+https://github.com/harshdabhi/crypto_merchant_payments/assets/109458952/ccf0bb52-e449-49a4-a8bf-098b40f6be10
 
 
