@@ -9,14 +9,14 @@ import concurrent.futures
 
 # Set up web3 connection
 config=configparser.ConfigParser()
-config.read('config.ini')
+config.read('config_main.ini')
 web3 = Web3(Web3.HTTPProvider(config['infura']['api_url']))
 
 @dataclass
 class payments:
 
     def generate_qr_code(self,link):
-        os.makedirs('./qrcode',exist_ok=True)
+        #os.makedirs('./qrcode',exist_ok=True)
         file_time=datetime.datetime.now().strftime('%H_%M_%S')
         filename='qr_code'+file_time+'.png'
         
@@ -31,8 +31,8 @@ class payments:
         qr.make(fit=True)
 
         qr_image = qr.make_image(fill_color="black", back_color="white")
-        qr_image.save(os.path.join('./qrcode/'+filename))
-        return filename
+        qr_image.save(os.path.join('./static/'+filename))
+        return filename,file_time
 
 
     def merchant_inputs(self,usd_value, merchant_wallet_address,payment_assest):

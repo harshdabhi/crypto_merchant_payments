@@ -22,5 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("",views.homepage),
     path("qr_code",views.qr_code), 
+    path("autopayment",views.start_autopayment),
+    path("success_page",views.success_page),   
     re_path(r'^.*$',views.error_page)
 ]

@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form  method="POST">
+        <form id="myForm" method="POST">
           {% csrf_token %}
 
 
@@ -19,14 +19,15 @@
           <br>
        
           <b>Chain</b> :&nbsp;
-          <select name="chain" id="chain">
+          <select name="chain">
             <option value="eth">ETH</option>
           </select>
 
           <br>
           <br>
 
-          <b>Payment assest type</b>: &nbsp;<select name="payment" id="payment_type">
+          <b>Payment assest type</b>: &nbsp;
+          <select name="payment">
 
             <option value="usdc">USDC</option>
             <option value="eth">ETH</option>
@@ -36,12 +37,13 @@
           <br>
           <br>
 
-          <b>Enter amount</b> :&nbsp;<input type="number" name="amount">
+          <b>Enter amount</b> :&nbsp;
+          <input type="number" name="amount">
 
           <br>
           <br>
 
-          <b>Enter Merchant's wallet address</b> :&nbsp;<input type="text" name="m_wallet">
+          <b>wallet address</b> :&nbsp;<input type="text" name="m_wallet">
           <br>
           <br>
           <button type="submit" class="btn btn-primary">Generate</button>
