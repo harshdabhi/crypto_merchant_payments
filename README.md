@@ -1,6 +1,6 @@
 # crypto_merchant_payments
 
-
+## Disclaimer : This is just for educational purpose!! use at your own risk
 # My Project
 
 Welcome to my project! Here's a video showcasing its features:
