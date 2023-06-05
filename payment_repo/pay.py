@@ -9,7 +9,7 @@ import concurrent.futures
 
 # Set up web3 connection
 config=configparser.ConfigParser()
-config.read('config_main.ini')
+config.read('config.ini')
 web3 = Web3(Web3.HTTPProvider(config['infura']['api_url']))
 
 @dataclass
