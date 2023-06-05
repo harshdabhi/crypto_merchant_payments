@@ -29,7 +29,7 @@ put this  api into new file name as config.ini and type following inputs
 
 [infura] 
 
-api_url:<your api url here>
+api_url:'your api url here'
 
 
 
