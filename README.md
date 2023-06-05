@@ -11,6 +11,7 @@ https://github.com/harshdabhi/crypto_merchant_payments/assets/109458952/ccf0bb52
 
 # Step1 create a new environment
 conda create --name myenv
+
 conda activate myenv
 
 # step2 run setup.py
