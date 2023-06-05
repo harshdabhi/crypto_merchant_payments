@@ -19,10 +19,7 @@ pip install -r requirements.txt
 
 
 
-# setup3 run django to start server
-python manage.py runserver 0.0.0.0:8000
-
-# setup 4
+# step 3
 go to https://app.infura.io and generate api
 
 put this  api into new file name as config.ini and type following inputs
@@ -30,6 +27,9 @@ put this  api into new file name as config.ini and type following inputs
 [infura] 
 
 api_url:'your api url here'
+
+# step 4 run django to start server
+python manage.py runserver 0.0.0.0:8000
 
 
 
