@@ -1,4 +1,4 @@
-# crypto_merchant_payments
+# web3_merchant_payments
 
 ## Disclaimer : This is just for educational purpose!! use at your own risk
 
